@@ -1,0 +1,145 @@
+{
+  "products": [
+    {
+      "title": "Nike",
+      "description": "This is the description for Product This is the description for Product This is the description for Product",
+      "image": " https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$100",
+      "quantity" :25
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product 2.",
+      "image": "https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :19
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product 1.",
+      "image": "https://images.pexels.com/photos/1240892/pexels-photo-1240892.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$100",
+      "quantity" :0
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product 2.",
+      "image": "https://images.pexels.com/photos/1307128/pexels-photo-1307128.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :20
+    },
+    {
+      "title": "Adidas",
+      "description": "This is the description for Product 1.",
+      "image": " https://images.pexels.com/photos/1580267/pexels-photo-1580267.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$100",
+      "quantity" :12
+    },
+    {
+      "title": "Puma",
+      "description": "This is the description for Product 2.",
+      "image": "https://images.pexels.com/photos/684152/pexels-photo-684152.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :0
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product 1.",
+      "image": "https://images.pexels.com/photos/1476209/pexels-photo-1476209.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$100",
+      "quantity" :8
+    },
+    {
+      "title": "Puma",
+      "description": "This is the description for Product 1.",
+      "image": " https://cdn.pixabay.com/photo/2015/09/26/09/08/hipster-958805_640.jpg",
+      "price": "$100",
+      "quantity" :11
+    },
+    {
+      "title": "Puma",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/2857040/pexels-photo-2857040.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :12
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product 1.",
+      "image": " https://images.pexels.com/photos/2385477/pexels-photo-2385477.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$100",
+      "quantity" :15
+    },
+    {
+      "title": "Adidas",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/1619652/pexels-photo-1619652.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :0
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product 1.",
+      "image": "https://images.pexels.com/photos/345415/pexels-photo-345415.jpeg?auto=compress&cs=tinysrgb&w=600 ",
+      "price": "$100",
+      "quantity" :10
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/1537671/pexels-photo-1537671.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :9
+    },
+    {
+      "title": "Adidas",
+      "description": "This is the description for Product 1.",
+      "image": "https://www.shutterstock.com/image-photo/bangkok-thailand-november-20-2022-600nw-2231903277.jpg ",
+      "price": "$100",
+      "quantity" :10
+    },
+    {
+      "title": "Adidas",
+      "description": "This is the description for Product .",
+      "image": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b6b6036a0a2c436ba5543f30348533f8_9366/STEP_N_PACE_SHOES_Black_IQ9157_01_standard.jpg",
+      "price": "$200",
+      "quantity" :9
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/786003/pexels-photo-786003.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :9
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/2404959/pexels-photo-2404959.png?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :9
+    },
+    {
+      "title": "Puma",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/2882861/pexels-photo-2882861.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :9
+    },
+    {
+      "title": "Adidas",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/1407354/pexels-photo-1407354.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :9
+    },
+    {
+      "title": "Nike",
+      "description": "This is the description for Product .",
+      "image": "https://images.pexels.com/photos/13449652/pexels-photo-13449652.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "price": "$200",
+      "quantity" :9
+    }
+
+  ]
+}
