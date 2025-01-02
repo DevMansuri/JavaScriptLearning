@@ -162,11 +162,52 @@ function filterProcucts(products) {
     }
   });
 
+  const sortAlphaDropdown = document.createElement("select");
+  sortAlphaDropdown.style.padding = "10px";
+  sortAlphaDropdown.style.fontSize = "16px";
+  sortAlphaDropdown.style.marginLeft = "10px";
+  sortAlphaDropdown.style.borderRadius = "5px";
+  sortAlphaDropdown.style.color = "#2D3E50";
+  sortAlphaDropdown.style.borderColor = "#2D3E50";
+  sortAlphaDropdown.style.fontWeight = "bold";
+
+  const defaultOptionAlpha = document.createElement("option");
+  defaultOptionAlpha.textContent = "Sort by Alphabet";
+  defaultOptionAlpha.value = "";
+  sortAlphaDropdown.appendChild(defaultOptionAlpha);
+
+  const aToZOption = document.createElement("option");
+  aToZOption.textContent = "A-Z";
+  aToZOption.value = "aToZ";
+  sortAlphaDropdown.appendChild(aToZOption);
+
+  const zToAOption = document.createElement("option");
+  zToAOption.textContent = "Z-A";
+  zToAOption.value = "zToA";
+  sortAlphaDropdown.appendChild(zToAOption);
+
+  sortAlphaDropdown.addEventListener("change", () => {
+    const selectedValue = sortAlphaDropdown.value;
+
+    if (selectedValue === "aToZ") {
+      const sortedProducts = [...products].sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+      renderCards(sortedProducts);
+    } else if (selectedValue === "zToA") {
+      const sortedProducts = [...products].sort((a, b) =>
+        b.title.localeCompare(a.title)
+      );
+      renderCards(sortedProducts);
+    }
+  });
+
   container.appendChild(allProductsButton);
   container.appendChild(category1Button);
   container.appendChild(category2Button);
   container.appendChild(category3Button);
   container.appendChild(sortDropdown);
+  container.appendChild(sortAlphaDropdown);
 
   root.appendChild(container);
 }
@@ -230,14 +271,8 @@ function createCard(item) {
     openImageModal(item.image);
   });
 
-  const getRandomNumber = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   const title = document.createElement("h2");
-  title.textContent =`${item.title} ${getRandomNumber(100,200)}` ;
+  title.textContent =`${item.title}` ;
   title.style.fontWeight = "bold";
   title.style.fontFamily = "'Poppins', sans-serif";
   title.style.textTransform = "uppercase";
