@@ -1,177 +1,404 @@
-let root = document.querySelector("#root");
+let allProducts = [];
+const root = document.querySelector("#root");
 
-const header = document.createElement("header");
-const h1 = document.createElement("h1");
+// create the header
+function createHeader() {
+  const header = document.createElement("header");
+  const h1 = document.createElement("h1");
+  h1.textContent = "Shoe Store"; // Store name
 
-h1.textContent = "Shoe Store"; // name
+  // Style the header
+  header.style.marginLeft = "30px";
+  header.style.width = "100%";
+  header.style.position = "relative";
 
-// Style the header
-// header.style.textAlign = 'center';
-header.style.marginLeft = "30px";
-header.style.width = "100%";
-header.style.position = "relative";
+  // Style the h1
+  h1.style.fontSize = "48px";
+  h1.style.color = "#2D3E50";
+  h1.style.fontWeight = "bold";
+  h1.style.fontFamily = "'Poppins', sans-serif";
+  h1.style.textTransform = "uppercase";
+  h1.style.letterSpacing = "4px";
+  h1.style.textShadow = "3px 3px 5px rgba(0, 0, 0, 0.1)";
 
-//style the h1 of header
-h1.style.fontSize = "48px";
-h1.style.color = "#2D3E50";
-h1.style.fontWeight = "bold";
-h1.style.fontFamily = "'Poppins', sans-serif";
-h1.style.textTransform = "uppercase";
-h1.style.letterSpacing = "4px";
-h1.style.textShadow = "3px 3px 5px rgba(0, 0, 0, 0.1)";
+  // Style  the h2
+  const h2 = document.createElement("h2");
+  h2.textContent = "The Best Footwear for Every Occasion"; // Subtitle
+  h2.style.fontSize = "22px";
+  h2.style.color = "#2D3E50";
+  h2.style.fontWeight = "300";
+  h2.style.fontFamily = "'Poppins', sans-serif";
+  h2.style.marginTop = "10px";
+  h2.style.textTransform = "capitalize";
+  h2.style.letterSpacing = "2px";
 
-const h2 = document.createElement("h2");
-h2.textContent = "The Best Footwear for Every Occasion"; // Subtitle of the store
-h2.style.fontSize = "22px"; // Smaller font size for the subtitle
-h2.style.color = "#2D3E50"; // Bright color for the subtitle
-h2.style.fontWeight = "300"; // Lighter weight for the subtitle
-h2.style.fontFamily = "'Poppins', sans-serif"; // Same font family for consistency
-h2.style.marginTop = "10px"; // Add space above the subtitle
-h2.style.textTransform = "capitalize"; // Capitalize the first letter of each word
-h2.style.letterSpacing = "2px"; // Add slight spacing between the letters for the subtitle
+  h1.appendChild(h2);
+  header.appendChild(h1);
+  root.appendChild(header);
+}
 
-h1.appendChild(h2);
-// Append the h1 to the header
-header.appendChild(h1);
+// Function to style the root and body
+function applyGlobalStyles() {
+  document.body.style.margin = 0;
+  document.body.style.fontFamily = "Arial, sans-serif";
+  document.body.style.backgroundColor = "#f4f4f4";
 
-// Append the header to the root container before cards
-root.appendChild(header);
+  root.style.display = "flex";
+  root.style.flexWrap = "wrap";
+  root.style.gap = "20px";
+  root.style.justifyContent = "center";
+  // root.style.padding = "20px";
+}
 
-//style for body
-document.body.style.margin = 0;
-document.body.style.fontFamily = "Arial, sans-serif";
-document.body.style.backgroundColor = "#f4f4f4";
+// Create the search bar
+function createSearchBar(products) {
+  const container = document.createElement("div");
+  container.style.width = "100%";
+  container.style.textAlign = "center";
+  // container.style.margin = "20px 0";
 
-// Style the root container
-root.style.display = "flex";
-root.style.flexWrap = "wrap";
-root.style.gap = "20px";
-root.style.justifyContent = "center";
-root.style.padding = "20px";
+  const searchInput = document.createElement("input");
+  searchInput.type = "text";
+  searchInput.placeholder = "Search for a product by name...";
+  searchInput.style.padding = "10px";
+  searchInput.style.width = "60%";
+  searchInput.style.fontSize = "16px";
+  searchInput.style.marginRight = "10px";
+  searchInput.style.borderRadius = "10px";
+  // Search Button
+  const searchButton = document.createElement("button");
+  searchButton.textContent = "Search";
+  searchButton.style.padding = "10px 20px";
+  searchButton.style.fontSize = "16px";
+  searchButton.style.backgroundColor = "#ff6f61";
+  searchButton.style.color = "#fff";
+  searchButton.style.border = "none";
+  searchButton.style.borderRadius = "5px";
+  searchButton.style.cursor = "pointer";
+  searchButton.style.marginRight = "10px";
 
-//fetch data form json file
-fetch("data.json")
-  .then((response) => {
-    console.log(response);
-    return response.json();
-  })
-  .then((data) => {
-    data.products.forEach((item) => {
-      const card = document.createElement("div");
-      card.className = "card";
+  // Add search functionality
+  searchButton.addEventListener("click", () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const filteredProducts = products.filter(
+      (product) => product.title.toLowerCase() === searchTerm
+    );
 
-      // Style the card
-      card.style.backgroundColor = "#fff";
-      card.style.borderRadius = "8px";
-      card.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
-      card.style.overflow = "hidden";
-      card.style.width = "23%"; // Four cards in a row
-      card.style.minWidth = "250px"; // Minimum size for smaller screens
-      card.style.transition = "transform 0.2s";
+    if (filteredProducts.length > 0) {
+      renderCards(filteredProducts);
+    } else {
+      alert("No product found with the given name.");
+    }
+  });
 
-      // Add hover for the card
-      card.addEventListener("mouseenter", () => {
-        card.style.transform = "translateY(-20px)";
-      });
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "translateY(0)";
-      });
+  container.appendChild(searchInput);
+  container.appendChild(searchButton);
 
-      // add image to card
-      const img = document.createElement("img");
-      img.src = item.image;
-      img.alt = item.title;
-      img.style.width = "100%";
-      img.style.height = "200px";
-      img.style.objectFit = "cover";
+  root.appendChild(container);
+}
 
-      //add title to card
-      const title = document.createElement("h2");
-      title.textContent = item.title;
-      title.style.fontSize = "18px";
-      title.style.margin = "15px";
-      title.style.color = "#333";
+//  Function for filter Product.
+function filterProcucts(products) {
+  const container = document.createElement("div");
+  container.style.width = "100%";
+  container.style.textAlign = "center";
+  container.style.margin = "20px 0";
 
-      //add description
+  const allProductsButton = createFilterButton("All Products", () => {
+    renderCards(allProducts); // Restore all products
+  });
 
-      const descriptionToggle = document.createElement("button");
+  const category1Button = createFilterButton("Nike", () => {
+    const filtered = products.filter((product) => product.title === "Nike");
+    renderCards(filtered);
+  });
+
+  const category2Button = createFilterButton("Adidas", () => {
+    const filtered = products.filter((product) => product.title === "Adidas");
+    renderCards(filtered);
+  });
+
+  const category3Button = createFilterButton("Puma", () => {
+    const filtered = products.filter((product) => product.title === "Puma");
+    renderCards(filtered);
+  });
+
+  const sortDropdown = document.createElement("select");
+  sortDropdown.style.padding = "10px";
+  sortDropdown.style.fontSize = "16px";
+  sortDropdown.style.marginLeft = "10px";
+  sortDropdown.style.borderRadius = "5px";
+  sortDropdown.style.color = "#2D3E50";
+  sortDropdown.style.borderColor = "#2D3E50";
+  sortDropdown.style.fontWeight = "bold";
+
+  // Add options to the dropdown
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = "Sort by Price";
+  defaultOption.value = "";
+  sortDropdown.appendChild(defaultOption);
+
+  const lowToHighOption = document.createElement("option");
+  lowToHighOption.textContent = "Low to High";
+  lowToHighOption.value = "lowToHigh";
+  sortDropdown.appendChild(lowToHighOption);
+
+  const highToLowOption = document.createElement("option");
+  highToLowOption.textContent = "High to Low";
+  highToLowOption.value = "highToLow";
+  sortDropdown.appendChild(highToLowOption);
+
+  // Add sorting functionality
+  sortDropdown.addEventListener("change", () => {
+    const selectedValue = sortDropdown.value;
+
+    if (selectedValue === "lowToHigh") {
+      const sortedProducts = [...products].sort((a, b) => a.price - b.price);
+      console.log(sortedProducts);
+      renderCards(sortedProducts);
+    } else if (selectedValue === "highToLow") {
+      const sortedProducts = [...products].sort((a, b) => b.price - a.price);
+      renderCards(sortedProducts);
+    }
+  });
+
+  container.appendChild(allProductsButton);
+  container.appendChild(category1Button);
+  container.appendChild(category2Button);
+  container.appendChild(category3Button);
+  container.appendChild(sortDropdown);
+
+  root.appendChild(container);
+}
+// Helper function to create filter buttons
+function createFilterButton(label, onClick) {
+  const button = document.createElement("button");
+  button.textContent = label;
+  button.style.padding = "10px 20px";
+  button.style.fontSize = "16px";
+  button.style.backgroundColor = "#2D3E50";
+  button.style.color = "#fff";
+  button.style.border = "none";
+  button.style.borderRadius = "5px";
+  button.style.cursor = "pointer";
+  button.style.margin = "0 5px";
+  button.style.transition = "background-color 0.3s";
+
+  button.addEventListener("mouseenter", () => {
+    button.style.backgroundColor = "#1A2739";
+  });
+
+  button.addEventListener("mouseleave", () => {
+    button.style.backgroundColor = "#2D3E50";
+  });
+
+  button.addEventListener("click", onClick);
+
+  return button;
+}
+// Function to create a card
+function createCard(item) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  // Style the card
+  card.style.backgroundColor = "#fff";
+  card.style.borderRadius = "8px";
+  card.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+  card.style.overflow = "hidden";
+  card.style.width = "18%";
+  card.style.minWidth = "250px";
+  card.style.transition = "transform 0.2s";
+
+  card.addEventListener("mouseenter", () => {
+    card.style.transform = "translateY(-20px)";
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "translateY(0)";
+  });
+
+  // Create and style elements
+  const img = document.createElement("img");
+  img.src = item.image;
+  img.alt = item.title;
+  img.style.width = "100%";
+  img.style.height = "200px";
+  img.style.objectFit = "cover";
+
+  // img.style.cursor = "pointer";
+  img.addEventListener("click", () => {
+    openImageModal(item.image);
+  });
+
+  const getRandomNumber = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const title = document.createElement("h2");
+  title.textContent =`${item.title} ${getRandomNumber(100,200)}` ;
+  title.style.fontWeight = "bold";
+  title.style.fontFamily = "'Poppins', sans-serif";
+  title.style.textTransform = "uppercase";
+  title.style.letterSpacing = "4px";
+  title.style.textShadow = "3px 3px 5px rgba(0, 0, 0, 0.1)";
+  title.style.fontSize = "18px";
+  title.style.margin = "15px";
+  title.style.color = "#333";
+
+  const price = document.createElement("div");
+  price.textContent = ` $ ${item.price}`;
+  price.style.fontWeight = "bold";
+  price.style.fontSize = "16px";
+  price.style.margin = "15px";
+  price.style.color = "#ff6f61";
+
+  const quantity = document.createElement("div");
+  quantity.style.fontWeight = "bold";
+  quantity.style.fontSize = "14px";
+  quantity.style.margin = "15px";
+  quantity.style.color = item.quantity > 0 ? "#28a745" : "#dc3545";
+  quantity.textContent =
+    item.quantity > 0 ? `Qty: ${item.quantity}` : "Out of Stock";
+
+  const addToCartButton = createAddToCartButton();
+  const { descriptionToggle, description } = createDescriptionToggle(
+    item.description
+  );
+
+  // Append elements to card
+  card.appendChild(img);
+  card.appendChild(title);
+  card.appendChild(price);
+  card.appendChild(quantity);
+  card.appendChild(addToCartButton);
+  card.appendChild(descriptionToggle);
+  card.appendChild(description);
+
+  return card;
+}
+
+function openImageModal(imageSrc) {
+  // Create the modal overlay
+  const modalOverlay = document.createElement("div");
+  modalOverlay.style.position = "fixed";
+  modalOverlay.style.top = "0";
+  modalOverlay.style.left = "0";
+  modalOverlay.style.width = "100%";
+  modalOverlay.style.height = "100%";
+  modalOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+  modalOverlay.style.display = "flex";
+  modalOverlay.style.justifyContent = "center";
+  modalOverlay.style.alignItems = "center";
+
+  // Create the modal image
+  const modalImage = document.createElement("img");
+  modalImage.src = imageSrc;
+  modalImage.style.maxWidth = "90%";
+  modalImage.style.maxHeight = "90%";
+  modalImage.style.borderRadius = "10px";
+
+  // Add close functionality to the modal
+  modalOverlay.addEventListener("click", () => {
+    document.body.removeChild(modalOverlay);
+  });
+
+  // Append the image to the overlay and the overlay to the body
+  modalOverlay.appendChild(modalImage);
+  document.body.appendChild(modalOverlay);
+}
+
+// Function to create "Add to Cart" button
+function createAddToCartButton() {
+  const button = document.createElement("button");
+  button.textContent = "Add to Cart";
+  button.style.backgroundColor = "#ff6f61";
+  button.style.color = "#fff";
+  button.style.border = "none";
+  button.style.padding = "10px 20px";
+  button.style.margin = "10px 15px";
+  button.style.borderRadius = "5px";
+  button.style.cursor = "pointer";
+  button.style.fontSize = "14px";
+  button.style.transition = "background-color 0.3s";
+
+  button.addEventListener("mouseenter", () => {
+    button.style.backgroundColor = "#e55a4e";
+  });
+  button.addEventListener("mouseleave", () => {
+    button.style.backgroundColor = "#ff6f61";
+  });
+
+  return button;
+}
+
+// Function to create description toggle
+function createDescriptionToggle(descriptionText) {
+  const descriptionToggle = document.createElement("button");
+  descriptionToggle.textContent = "DES ▼";
+  descriptionToggle.style.backgroundColor = "#f4f4f4";
+  descriptionToggle.style.color = "#ff6f61";
+  descriptionToggle.style.border = "none";
+  descriptionToggle.style.padding = "5px 10px";
+  descriptionToggle.style.margin = "15px";
+  descriptionToggle.style.borderRadius = "5px";
+  descriptionToggle.style.cursor = "pointer";
+  descriptionToggle.style.fontSize = "14px";
+
+  const description = document.createElement("div");
+  description.textContent = descriptionText;
+  description.style.display = "none";
+  description.style.margin = "0 15px 15px";
+  description.style.color = "#666";
+  description.style.fontSize = "14px";
+
+  descriptionToggle.addEventListener("click", () => {
+    if (description.style.display === "none") {
+      description.style.display = "block";
+      descriptionToggle.textContent = "DES ▲";
+    } else {
+      description.style.display = "none";
       descriptionToggle.textContent = "DES ▼";
-      descriptionToggle.style.backgroundColor = "#f4f4f4";
-      descriptionToggle.style.color = "#333";
-      descriptionToggle.style.border = "none";
-      descriptionToggle.style.padding = "5px 10px";
-      descriptionToggle.style.margin = "0 15px 15px";
-      descriptionToggle.style.borderRadius = "5px";
-      descriptionToggle.style.cursor = "pointer";
-      descriptionToggle.style.fontSize = "14px";
+    }
+  });
 
-      // Create the description div
-      const description = document.createElement("div");
-      description.textContent = item.description;
-      description.style.display = "none"; // hidden
-      description.style.margin = "0 15px 15px 15px";
-      description.style.color = "#666";
-      description.style.fontSize = "14px";
+  return { descriptionToggle, description };
+}
 
-      // Toggle description visibility on click
-      descriptionToggle.addEventListener("click", () => {
-        if (description.style.display === "none") {
-          description.style.display = "block"; // Show description
-          descriptionToggle.textContent = "DES ▲"; // Change button text
-        } else {
-          description.style.display = "none"; // Hide description
-          descriptionToggle.textContent = "DES ▼"; // Change button text
-        }
-      });
+// Function to render cards
 
-      // add price to card
-      const price = document.createElement("div");
-      price.textContent = item.price;
-      price.style.fontWeight = "bold";
-      price.style.fontSize = "16px";
-      price.style.margin = "15px";
-      price.style.color = "#ff6f61";
+function renderCards(products) {
+  // Clear existing cards
+  root.innerHTML = "";
+  createHeader();
+  applyGlobalStyles();
+  createSearchBar(allProducts); // Pass all products for search functionality
+  filterProcucts(allProducts); // Pass all products for filtering
 
-      //add quantity to card
-      const quantity = document.createElement('div');
-      quantity.style.fontWeight = 'bold';
-      quantity.style.fontSize = '14px';
-      quantity.style.margin = '15px';
-      quantity.style.color = item.quantity > 0 ? '#28a745' : '#dc3545'; // Green for in stock, red for out of stock
-      quantity.textContent =
-        item.quantity > 0 ? `Qty: ${item.quantity}` : 'Out of Stock';
+  products.forEach((item) => {
+    const card = createCard(item);
+    root.appendChild(card);
+  });
+}
 
-      // Create the "Add to Cart" button
-      const addToCartButton = document.createElement("button");
-      addToCartButton.textContent = "Add to Cart";
-      addToCartButton.style.backgroundColor = "#ff6f61"; // Button color (same as price)
-      addToCartButton.style.color = "#fff"; // Text color
-      addToCartButton.style.border = "none";
-      addToCartButton.style.padding = "10px 20px";
-      addToCartButton.style.margin = "10px 15px";
-      addToCartButton.style.borderRadius = "5px";
-      addToCartButton.style.cursor = "pointer";
-      addToCartButton.style.fontSize = "14px";
-      addToCartButton.style.transition = "background-color 0.3s";
+function fetchData() {
+  fetch("data.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allProducts = data.products; // Store all products in a global variable
+      renderCards(allProducts); // Render all products initially
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+}
 
-      // Hover for the button
-      addToCartButton.addEventListener("mouseenter", () => {
-        addToCartButton.style.backgroundColor = "#e55a4e";
-      });
-      addToCartButton.addEventListener("mouseleave", () => {
-        addToCartButton.style.backgroundColor = "#ff6f61";
-      });
+function init() {
+  fetchData();
+}
 
-      card.appendChild(img);
-      card.appendChild(title);
-      card.appendChild(price);
-      card.appendChild(quantity);
-      card.appendChild(addToCartButton);
-      card.appendChild(descriptionToggle);
-      card.appendChild(description);
-
-      // Append the card to the root container
-      root.appendChild(card);
-    });
-  })
-  .catch((error) => console.error("Error fetching data:", error));
+init();
